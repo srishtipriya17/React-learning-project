@@ -1,0 +1,23 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:linear-gradient(135deg, #ffe5ec,#ffffff);
+}
+
+.container{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.heading{
+  font-size:30px;
+  color: #333;
+  margin-bottom: 10px;
+}
