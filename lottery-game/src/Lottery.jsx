@@ -8,6 +8,10 @@ export default function Lottery(){
   let [ticket,setTicket]=useState(genTicket(3));
  let iswinning=sum(ticket)===15;
 
+ let buyTicket=()=>{
+  setTicket(genTicket(3))
+ }
+
   return(
     <>
     <div>
@@ -17,6 +21,7 @@ export default function Lottery(){
       <span>{ticket[1]}</span>
       <span>{ticket[2]}</span>
     </div>
+    <button onClick={buyTicket}>Buy new ticket!!</button>
     <h3>{iswinning && "Congratulations, you won!"}</h3>
     </div>
     </>
