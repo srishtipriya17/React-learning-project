@@ -6,13 +6,13 @@ import { v4 as uuidv4 } from 'uuid';
 export default function TodoList(){
   
   const[input, setInput]= useState("");
-  const[todos, setTodos] = useState([{ task:"sample task", id:uuidv4()}]);
+  const[todos, setTodos] = useState([{ task:"sample task", id:uuidv4(),isDone:false}]);
 
 
 
-  const addNewTask= (prevTodos)=>{
+  const addNewTask= ()=>{
     if (input.trim()==="") return;
-   setTodos([...prevTodos,{task:input, id:uuidv4()}]);
+   setTodos((prevTodos)=>[...prevTodos,{task:input, id:uuidv4(), isDone:false}]);
    setInput(""); 
   }  
   
@@ -20,6 +20,27 @@ export default function TodoList(){
     setInput(event.target.value);
   }
  
+  let deleteTodo= (id)=>{
+    setTodos((prevTodos)=>todos.filter((prevTodos)=>prevTodos.id !=id));
+  }
+  
+  let markAsDone=(id)=>{
+    setTodos((prevTodos)=>{
+      prevTodos.map((todo)=>{
+        if(todo.id == id){
+          return{
+            ...todo,
+            isDone:true
+          };
+        }
+          else{
+            return todo;
+          }
+        }
+
+      })
+    })
+  }
  
   return (
     <div>
@@ -37,7 +58,14 @@ export default function TodoList(){
       <ul>
       {
         todos.map((todo)=>(
-          <li key={todo.id}>{todo.task}</li>
+          <li key={todo.id}>
+            <span style = {isDone?textDecorationLine:"Line-through :{}} >{todo.task} </span>
+            
+            
+            &nbsp;&nbsp;&nbsp;
+            <button onClick ={()=>deleteTodo(todo.id)}>Delete</button>
+            <button onClick={()=>markAsDone(todo.id)}>Mark As Done</button>
+            </li>
         ))
           
     
