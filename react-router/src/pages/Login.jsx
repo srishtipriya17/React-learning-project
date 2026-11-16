@@ -1,11 +1,15 @@
 import { useNavigate } from "react-router";
 
-function Login() {
+function Login({ isLoggedIn, setIsLoggedIn }) {
 
   const navigate = useNavigate();
 
   function handleLogin() {
-    // Login successful
+    setIsLoggedIn(true);
+    navigate("/dashboard");
+  }
+
+  if (isLoggedIn) {
     navigate("/dashboard");
   }
 

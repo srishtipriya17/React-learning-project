@@ -1,40 +1,38 @@
-import { Routes, Route } from "react-router";
-import {  NavLink} from "react-router";
-import Product from "./pages/Product";
-
-import "./App.css";
+import { useState } from "react";
+import { Routes, Route, useNavigate } from "react-router";
 
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
 import Login from "./pages/Login";
+import Dashboard from "./pages/Dashboard";
+import ProtectedRoute from "./components/ProtectedRoute";
+
 function App() {
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
-    <div>
+    <Routes>
+      <Route path="/" element={<Home />} />
 
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/contact">Contact</NavLink>
-        <NavLink to="/login">Login</NavLink>
+      <Route
+        path="/login"
+        element={
+          <Login
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+          />
+        }
+      />
 
-        </nav>
-
-      <Routes>
-
-        <Route path="/product/:category/:id" element={<Product />} />
-
-        <Route path="/" element={<Home />} />
-
-        <Route path="/about" element={<About />} />
-
-        <Route path="/contact" element={<Contact />} />
-
-        <Route path="/login" element={<Login />} />
-
-      </Routes>
-
-    </div>
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+    </Routes>
   );
 }
 
